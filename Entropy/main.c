@@ -194,12 +194,19 @@ int entropy(void)
     {
         char currentChar = *(uniqueChars + i);
         char* unc_str = byteToBin(currentChar, ceil(maxEntropy));
-        printf(" %c — %s — %s\n", currentChar, unc_str, getStrPath(paths[currentChar]));
+        printf(" %c - %s - %s\n", currentChar, unc_str, getStrPath(paths[currentChar]));
         free(unc_str);
     }
     
     free(uniqueChars);
     free(message);
+
+#ifdef _WIN32
+
+    printf("\n");
+    system("pause");
+
+#endif // _WIN32
 
     return 0;
 }

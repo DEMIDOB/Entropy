@@ -1,1 +1,3 @@
 *.xcodeproj
+*.vcxproj*
+x64/
