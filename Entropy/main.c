@@ -39,7 +39,7 @@ int entropy(void)
     
     printf("\n");
     
-    printf("Max size:          %d bit\n", (int) ceil(maxEntropy) * message->length);
+    printf("Bruteforce size:   %d bit\n", (int) ceil(maxEntropy) * message->length);
     printf("Min size:          %d bit\n", (int) ceil(actEntropy * message->length));
     
     TreeNode* rootNode = (TreeNode*) message->p_rootNode;
@@ -65,7 +65,7 @@ int entropy(void)
     
     
     // generate uncompressed
-    printf("\nUncompressed:      ");
+    printf("\nBruteforce:        ");
     for (size_t i = 0; i < message->length; ++i)
     {
         char s = msgstr[i];
