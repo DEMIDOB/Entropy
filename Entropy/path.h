@@ -12,8 +12,6 @@
 
 #include "entropy.h"
 
-#endif /* path_h */
-
 typedef struct SymbolPath SymbolPath;
 
 struct SymbolPath
@@ -25,3 +23,5 @@ struct SymbolPath
 SymbolPath* newSymbolPath(size_t messageLength);
 void addStep(SymbolPath* this, bool right);
 char* getStrPath(SymbolPath* this);
+
+#endif /* path_h */

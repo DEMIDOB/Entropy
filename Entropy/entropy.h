@@ -1,3 +1,6 @@
+#ifndef entropy_h
+#define entropy_h
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,3 +11,9 @@
 #define ALPHABET_CARDINALITY 256
 
 #define DOUBLE_CHAR sizeof(char) * 2
+
+typedef char byte;
+typedef char* string;
+
+#endif
+

@@ -5,20 +5,21 @@
 //  Created by Даня Демидов on 26.10.22.
 //
 
-#include "entropy.h"
-
 #ifndef treeNode_h
 #define treeNode_h
 
 //#include <stdio.h>
 
-#endif /* treeNode_h */
+#include "entropy.h"
+#include "emessage.h"
 
 typedef struct TreeNode TreeNode;
 
 struct TreeNode {
     int value;
     char symbol;
+    
+    void* relatedMessage;
 
     char* leadsTo;
 
@@ -27,10 +28,12 @@ struct TreeNode {
     TreeNode* flatNext;
 };
 
-void setMessageLength(size_t length);
+//void setMessageLength(size_t length);
 
 bool hasFlatNext(TreeNode* node);
-TreeNode* newNode(int value);
-int insertFlat(TreeNode** rootNodePtr, TreeNode* target);
+TreeNode* newNode(int value, void* relatedMessage);
+int insertFlat(TreeNode* p_rootNode, TreeNode* target);
 void addReachingChar(TreeNode* this, char* anotherDestination);
-TreeNode* newNode_S(char symbol, int occurrences);
+TreeNode* newNode_S(char symbol, int occurrences, void* relatedMessage);
+
+#endif /* treeNode_h */

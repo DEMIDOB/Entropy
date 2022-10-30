@@ -6,21 +6,17 @@
 //
 
 #include "treeNode.h"
-
-size_t messageLength = 0;
-
-void setMessageLength(size_t length)
-{
-    messageLength = length;
-}
+#include "emessage.h"
 
 bool hasFlatNext(TreeNode* node)
 {
     return node->flatNext != NULL;
 }
 
-TreeNode* newNode(int value)
+TreeNode* newNode(int value, void* relatedMessage)
 {
+    unsigned long messageLength = ((eMessage*) relatedMessage)->length;
+    
     if (messageLength < 1)
     {
         printf("Message length is set to %zu, terminating...\n", messageLength);
@@ -29,25 +25,25 @@ TreeNode* newNode(int value)
     
     TreeNode* nodePtr = malloc(sizeof(TreeNode));
     char* leadsTo = calloc(sizeof(char) * messageLength, sizeof(char) * messageLength);
-    TreeNode node = {value, '\0', leadsTo, NULL, NULL, NULL};
+    TreeNode node = {value, '\0', ((eMessage*) relatedMessage), leadsTo, NULL, NULL, NULL};
     *nodePtr = node;
     return nodePtr;
 }
 
-int insertFlat(TreeNode** rootNodePtr, TreeNode* target)
+int insertFlat(TreeNode* p_rootNode, TreeNode* target)
 {
     int steps = 0;
-    TreeNode* currentNode = *rootNodePtr;
+    TreeNode* p_currentNode = p_rootNode;
 
-    while (hasFlatNext(currentNode) && currentNode->flatNext->value < target->value)
+    while (hasFlatNext(p_currentNode) && p_currentNode->flatNext->value < target->value)
     {
-        currentNode = currentNode->flatNext;
+        p_currentNode = p_currentNode->flatNext;
         ++steps;
     }
 
     // means that we should insert the target AFTER the what is our currentNode
-    TreeNode* currentNext = currentNode->flatNext;
-    currentNode->flatNext = target;
+    TreeNode* currentNext = p_currentNode->flatNext;
+    p_currentNode->flatNext = target;
     
     if (currentNext != NULL)
     {
@@ -96,9 +92,9 @@ void addReachingChar(TreeNode* this, char* anotherDestination)
     free(ad_nodup);
 }
 
-TreeNode* newNode_S(char symbol, int occurrences)
+TreeNode* newNode_S(char symbol, int occurrences, void* relatedMessage)
 {
-    TreeNode* nodePtr = newNode(occurrences);
+    TreeNode* nodePtr = newNode(occurrences, ((eMessage*) relatedMessage));
     nodePtr->symbol = symbol;
     
     char* symbolStr = malloc(DOUBLE_CHAR);
