@@ -15,8 +15,8 @@ eMessage* newEMessage(string msgstr)
         msgstr,
         length,
         
-        {},                            // charOccurrences
-        {},
+        {0},                           // charOccurrences
+        {NULL},                        // paths
         
         malloc(sizeof(char) * length), // uniqueChars
         0,                             // uniqueCharsNum
@@ -40,7 +40,11 @@ void initializePaths(eMessage* message)
 {
     for (size_t i = 0; i < message->uniqueCharsNum; i++)
     {
-        message->paths[*(message->uniqueChars + i)] = newSymbolPath(message->length);
+        char s = *(message->uniqueChars + i);
+        if (containsSymbol(message, s))
+        {
+            message->paths[s] = newSymbolPath(message->length);
+        }
     }
 }
 
@@ -149,4 +153,9 @@ float getActEntropy(eMessage* message)
     message->actEntropy = entropy;
     
     return entropy;
+}
+
+bool containsSymbol(eMessage* message, char s)
+{
+    return message->charOccurrences[s];
 }

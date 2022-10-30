@@ -19,7 +19,7 @@ struct eMessage
     string        msgstr;
     unsigned long length;
     
-    int   charOccurrences[ALPHABET_CARDINALITY];
+    int         charOccurrences[ALPHABET_CARDINALITY];
     SymbolPath* paths[ALPHABET_CARDINALITY];
     
     char* uniqueChars;
@@ -39,5 +39,7 @@ void generatePaths(eMessage* message);
 
 float getMaxEntropy(eMessage* message);
 float getActEntropy(eMessage* message);
+
+bool containsSymbol(eMessage* message, char s);
 
 #endif /* emessage_h */
